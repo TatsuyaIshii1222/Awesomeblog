@@ -1,0 +1,22 @@
+<div class="media mb-4">
+    <div class="mr-2">
+        <%= link_to(gravatar_for(post.user,size:60),post.user)%>
+    </div>
+    <div class="media-body">
+        <h5><%= link_to(post.user.name,post.user)%></h5>
+        <div><%= post.content%></div>
+        <% if post.picture? %>
+            <div>
+                <%=image_tag(post.picture.url,class:"mw-100")%>
+            </div>
+        <%end%>
+        <small class="text-muted">
+            Posted <%= time_ago_in_words(post.created_at)%>
+        </small>
+    </div>
+    <%if current_user == post.user%>
+        <%= link_to(post,method: :delete,data:{confirm: "Are you sure"},class:"float-right") do %>
+            <i class="fas fa-trash text-muted"></i>
+        <%end%>
+    <%end%>
+</div>

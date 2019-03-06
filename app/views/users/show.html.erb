@@ -1,0 +1,43 @@
+<div class="row jumbotron">
+    <div class="col-lg-6">
+        <div class="media">
+            <div class="mr-3 align-self-center">
+                <%= gravatar_for(@user,size:120)%>
+            </div>
+
+            <div class="media-body my-auto">
+                <h1><%= @user.name%></h1>
+                <div class="row">
+                
+                    <div class="col">
+                        <h4><%= @user.following.count%></h4>
+                        <small>following</small>
+                    </div>
+                    <div class="col">
+                        <h4><%= @user.followers.count%></h4>
+                        <small>followers</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 text-right">
+        <% unless current_user == @user%>
+            <%if current_user.following?(@user) %>
+                <%= render("unfollow")%>
+            <%else%>
+                <%= render("follow")%>
+            <%end%>
+        <%end%>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <%if @posts.any?%>
+            <%=render(@posts)%>
+            <div class="paginate text-center">
+                <%= will_paginate(@posts)%>
+            </div>
+        <%end%>
+    </div>
+</div>
